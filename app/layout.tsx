@@ -1,27 +1,29 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Leshan Nang'eya | Product and Systems Architect",
+export const metadata = {
+  title: "Leshan Nang'eya – Product and Systems Architect Portfolio",
   description:
-    "I design scalable data driven platforms that turn complex business problems into durable systems. Focused on clarity, resilience, and measurable impact.",
-  metadataBase: new URL("https://leshan-portfolio.vercel.app"),
+    "Architecture case studies and data driven systems focused on scalability, clarity, and measurable business impact.",
   openGraph: {
-    title: "Leshan Nang'eya | Product and Systems Architect",
+    title: "Leshan Nang'eya – Product and Systems Architect Portfolio",
     description:
-      "Architecture case studies and system design work focused on clarity, resilience, and measurable impact.",
+      "Architecture case studies and data driven systems focused on scalability, clarity, and measurable business impact.",
     url: "https://leshan-portfolio.vercel.app",
-    siteName: "Leshan Nang'eya Portfolio",
+    siteName: "Leshan Nang'eya",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Leshan Nang'eya Portfolio",
+        alt: "Leshan Nang'eya portfolio preview",
       },
     ],
     locale: "en_US",
     type: "website",
+  },
+};
+
   },
   twitter: {
     card: "summary_large_image",
