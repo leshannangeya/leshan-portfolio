@@ -1,8 +1,38 @@
+import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadata = {
-  title: "Leshan Nang'eya Portfolio",
-  description: "Product and Systems Architect portfolio",
+export const metadata: Metadata = {
+  title: "Leshan Nang'eya | Product and Systems Architect",
+  description:
+    "I design scalable data driven platforms that turn complex business problems into durable systems. Focused on clarity, resilience, and measurable impact.",
+  metadataBase: new URL("https://leshan-portfolio.vercel.app"),
+  openGraph: {
+    title: "Leshan Nang'eya | Product and Systems Architect",
+    description:
+      "Architecture case studies and system design work focused on clarity, resilience, and measurable impact.",
+    url: "https://leshan-portfolio.vercel.app",
+    siteName: "Leshan Nang'eya Portfolio",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Leshan Nang'eya Portfolio",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Leshan Nang'eya | Product and Systems Architect",
+    description:
+      "Architecture case studies and system design work focused on clarity, resilience, and measurable impact.",
+    images: ["/og.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 const NavLink = ({ href, label }: { href: string; label: string }) => (
