@@ -1,36 +1,4 @@
-export const metadata = {
-  title: "Contact | Leshan Nang'eya",
-  description:
-    "Contact Leshan Nang'eya for product thinking, system design, and data platform architecture.",
-};
-
-const Card = ({
-  title,
-  subtitle,
-  children,
-}: {
-  title: string;
-  subtitle?: string;
-  children: React.ReactNode;
-}) => (
-  <section className="rounded-2xl border border-zinc-900 bg-zinc-950/40 p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
-    <div className="space-y-1">
-      <h2 className="text-lg font-semibold text-white">{title}</h2>
-      {subtitle ? (
-        <p className="text-sm leading-6 text-zinc-400">{subtitle}</p>
-      ) : null}
-    </div>
-    <div className="mt-6">{children}</div>
-  </section>
-);
-
-const Label = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-xs font-medium tracking-wide text-zinc-500">{children}</p>
-);
-
-const Value = ({ children }: { children: React.ReactNode }) => (
-  <p className="mt-1 text-sm font-medium text-white">{children}</p>
-);
+// app/contact/page.tsx
 
 const Row = ({
   label,
@@ -40,186 +8,174 @@ const Row = ({
   label: string;
   value: string;
   href?: string;
-}) => (
-  <div className="py-4">
-    <Label>{label}</Label>
-    <Value>
-      {href ? (
-        <a
-          href={href}
-          className="text-white underline decoration-zinc-700 underline-offset-4 hover:decoration-zinc-400"
-        >
-          {value}
-        </a>
-      ) : (
-        value
-      )}
-    </Value>
-    <div className="mt-4 h-px w-full bg-zinc-900" />
-  </div>
-);
+}) => {
+  const isExternal = href?.startsWith("http");
 
-const Pill = ({ children }: { children: React.ReactNode }) => (
-  <span className="inline-flex items-center rounded-full border border-zinc-900 bg-black/40 px-3 py-1 text-xs text-zinc-300">
-    {children}
-  </span>
-);
+  const content = href ? (
+    <a
+      href={href}
+      className="text-white no-underline underline-offset-4 hover:underline"
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
+    >
+      {value}
+    </a>
+  ) : (
+    <span className="text-white">{value}</span>
+  );
+
+  return (
+    <div className="flex flex-col gap-1 border-b border-zinc-800 pb-4">
+      <div className="text-xs uppercase tracking-wide text-zinc-500">{label}</div>
+      <div className="text-sm">{content}</div>
+    </div>
+  );
+};
 
 export default function ContactPage() {
   const email = "hello@leshannangeya.com";
-  const mailto = `mailto:${email}?subject=${encodeURIComponent(
-    "Project inquiry"
-  )}&body=${encodeURIComponent(
-    "Hi Leshan,\n\nContext:\n\nProblem:\n\nWhat we tried:\n\nTarget outcome:\n\nTimeline:\n\nConstraints:\n\nBest,\n"
-  )}`;
+
+  const subject = encodeURIComponent("Project discussion");
+  const body = encodeURIComponent(
+    [
+      "Context:",
+      "",
+      "What you are building:",
+      "",
+      "Decision needed:",
+      "",
+      "Timeline:",
+      "",
+      "Constraints:",
+      "",
+      "Links (optional):",
+      "",
+    ].join("\n")
+  );
+
+  const mailto = `mailto:${email}?subject=${subject}&body=${body}`;
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <div className="mb-10 flex items-start justify-between gap-6">
-        <div className="max-w-2xl">
-          <p className="text-sm font-medium text-zinc-400">Contact</p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-            Let us build something durable
-          </h1>
+    <main className="min-h-screen bg-black text-white">
+      <div className="mx-auto max-w-5xl px-6 py-16">
+        <div className="flex items-center justify-between gap-6">
+          <div>
+            <p className="text-sm text-zinc-400">Contact</p>
+            <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Let us build something durable
+            </h1>
+            <p className="mt-4 max-w-2xl text-zinc-300">
+              If you want a system that ships clean, scales, and produces decision ready data,
+              reach out. I help teams design architecture, data models, and analytics pipelines
+              that reduce chaos and improve outcomes.
+            </p>
 
-          <p className="mt-5 text-base leading-7 text-zinc-300">
-            I work with founders, product leaders, and teams who need clarity in
-            complex systems. If you are designing a data platform, rethinking
-            system architecture, or fixing decisions that are not scaling, this
-            is the right place to start.
-          </p>
-
-          <p className="mt-4 text-base leading-7 text-zinc-300">
-            I focus on clear problem framing, practical system design, and
-            execution that holds up under real world constraints.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            <Pill>System design</Pill>
-            <Pill>Data platforms</Pill>
-            <Pill>Analytics engineering</Pill>
-            <Pill>Decision systems</Pill>
-            <Pill>APIs</Pill>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {[
+                "System design",
+                "Data modeling",
+                "Analytics engineering",
+                "Dashboards and KPIs",
+                "Automation",
+              ].map((x) => (
+                <span
+                  key={x}
+                  className="rounded-full border border-zinc-800 bg-zinc-950/40 px-3 py-1 text-xs text-zinc-200"
+                >
+                  {x}
+                </span>
+              ))}
+            </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href={mailto}
-              className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-zinc-200"
-            >
-              Start a conversation
-            </a>
-
-            <a
-              href="/systems"
-              className="inline-flex items-center justify-center rounded-xl border border-zinc-800 bg-black/20 px-5 py-3 text-sm font-semibold text-white hover:border-zinc-700 hover:bg-black/30"
-            >
-              View systems
-            </a>
-          </div>
-
-          <p className="mt-4 text-sm text-zinc-500">
-            I respond fastest when the message includes context, goals, and
-            constraints.
-          </p>
-        </div>
-
-        <div className="hidden sm:block">
           <a
             href="/"
-            className="rounded-xl border border-zinc-800 bg-black/20 px-4 py-2 text-sm text-zinc-200 hover:border-zinc-700 hover:bg-black/30"
+            className="rounded-xl border border-zinc-800 px-4 py-2 text-sm font-medium text-white no-underline hover:border-zinc-500"
           >
             Home
           </a>
         </div>
-      </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card
-          title="Direct contact"
-          subtitle="Email is best for serious conversations. Keep it short, clear, and specific."
-        >
-          <div className="mt-1">
-            <Row label="Email" value={email} href={mailto} />
-            <Row
-              label="Location"
-              value="Boston, Massachusetts. Remote friendly."
-            />
-            <Row
-              label="Availability"
-              value="By appointment. Limited concurrent engagements."
-            />
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+          {/* Left card */}
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950/40 p-6">
+            <h2 className="text-base font-semibold">Direct</h2>
+            <p className="mt-2 text-sm text-zinc-300">
+              Email works best. Share the goal, the decision you need, and what success looks like.
+              I respond faster when the request is specific.
+            </p>
 
-            <div className="pt-2">
-              <Label>What to include</Label>
-              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-zinc-300">
-                <li>One paragraph describing the problem</li>
-                <li>What you have already tried</li>
-                <li>Target outcome and timeline</li>
-                <li>Known constraints: budget, data, team, compliance</li>
-              </ul>
+            <div className="mt-6 space-y-4">
+              <Row label="Email" value={email} href={mailto} />
+              <Row label="Base" value="Boston, Massachusetts" />
+              <Row label="Availability" value="By appointment" />
+              <Row label="Best for" value="Architecture reviews, analytics design, product systems" />
+            </div>
 
-              <div className="mt-6 rounded-2xl border border-zinc-900 bg-black/30 p-4">
-                <p className="text-xs font-medium tracking-wide text-zinc-500">
-                  Message template
-                </p>
-                <pre className="mt-3 whitespace-pre-wrap text-sm leading-6 text-zinc-300">
-{`Context:
-Problem:
-What we tried:
-Target outcome:
-Timeline:
-Constraints:`}
-                </pre>
+            <div className="mt-6 rounded-2xl border border-zinc-800 bg-black p-5">
+              <div className="text-xs uppercase tracking-wide text-zinc-500">
+                What to include
               </div>
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-300">
+                <li>Your context in one paragraph</li>
+                <li>The decision you need to make</li>
+                <li>The data you have now and what is missing</li>
+                <li>Your timeline and success metrics</li>
+                <li>Constraints such as tools, budget, access, team</li>
+              </ul>
             </div>
           </div>
-        </Card>
 
-        <Card
-          title="Professional presence"
-          subtitle="Keep your links consistent. One identity across platforms."
-        >
-          <div className="mt-1">
-            <Row
-              label="GitHub"
-              value="github.com/leshannangeya"
-              href="https://github.com/leshannangeya"
-            />
-            <Row
-              label="LinkedIn"
-              value="Add your LinkedIn profile link"
-              href="https://www.linkedin.com/in/leshannangeya/"
-            />
-            <Row label="Resume" value="Available on request" />
+          {/* Right card */}
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950/40 p-6">
+            <h2 className="text-base font-semibold">Links</h2>
+            <p className="mt-2 text-sm text-zinc-300">
+              Here are the places where my work lives. If you want one link, start with GitHub.
+            </p>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3">
+            <div className="mt-6 space-y-4">
+              <Row
+                label="GitHub"
+                value="github.com/leshannangeya"
+                href="https://github.com/leshannangeya"
+              />
+              <Row
+                label="Portfolio"
+                value="leshannangeya.com"
+                href="https://leshannangeya.com"
+              />
+              <Row
+                label="Email"
+                value={email}
+                href={mailto}
+              />
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
               <a
                 href={mailto}
-                className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-zinc-200"
+                className="inline-block rounded-xl bg-white px-4 py-2 text-sm font-medium text-black no-underline hover:opacity-90"
               >
                 Email me
               </a>
+
               <a
                 href="/systems"
-                className="inline-flex items-center justify-center rounded-xl border border-zinc-800 bg-black/20 px-5 py-3 text-sm font-semibold text-white hover:border-zinc-700 hover:bg-black/30"
+                className="inline-block rounded-xl border border-zinc-800 px-4 py-2 text-sm font-medium text-white no-underline hover:border-zinc-500"
               >
-                See architecture work
+                View case studies
               </a>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-zinc-900 bg-black/30 p-4">
-              <p className="text-sm font-medium text-white">
-                Engagements are selective
-              </p>
-              <p className="mt-2 text-sm leading-6 text-zinc-300">
-                I take on a small number of engagements at a time to protect
-                quality and focus. If your work needs durable decisions and
-                strong architecture, we will move fast.
-              </p>
-            </div>
+            <p className="mt-4 text-xs text-zinc-500">
+              If you are contacting me about a role, include the job link and what you want me to focus on.
+            </p>
           </div>
-        </Card>
+        </div>
+
+        <div className="mt-10 text-sm text-zinc-500">
+          Clear inputs create clear outputs. Send context, target outcome, and constraints.
+        </div>
       </div>
     </main>
   );
