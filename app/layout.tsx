@@ -1,39 +1,32 @@
-import type { Metadata } from "next";
 import "./globals.css";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Leshan Nang'eya – Product and Systems Architect Portfolio",
+export const metadata: Metadata = {
+  metadataBase: new URL("https://leshannangeya.com"),
+  title: "Leshan Nang'eya | Product and Systems Architect",
   description:
-    "Architecture case studies and data driven systems focused on scalability, clarity, and measurable business impact.",
+    "Architecture case studies and data driven systems. Product thinking, system design, analytics engineering, and BI.",
   openGraph: {
-    title: "Leshan Nang'eya – Product and Systems Architect Portfolio",
+    type: "website",
+    url: "https://leshannangeya.com",
+    title: "Leshan Nang'eya | Product and Systems Architect",
     description:
-      "Architecture case studies and data driven systems focused on scalability, clarity, and measurable business impact.",
-    url: "https://leshan-portfolio.vercel.app",
-    siteName: "Leshan Nang'eya",
+      "Architecture case studies and data driven systems. Product thinking, system design, analytics engineering, and BI.",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Leshan Nang'eya portfolio preview",
+        alt: "Leshan Nang'eya | Product and Systems Architect",
       },
     ],
-    locale: "en_US",
-    type: "website",
-  },
-};
-
   },
   twitter: {
     card: "summary_large_image",
     title: "Leshan Nang'eya | Product and Systems Architect",
     description:
-      "Architecture case studies and system design work focused on clarity, resilience, and measurable impact.",
+      "Architecture case studies and data driven systems. Product thinking, system design, analytics engineering, and BI.",
     images: ["/og.png"],
-  },
-  icons: {
-    icon: "/favicon.ico",
   },
 };
 
