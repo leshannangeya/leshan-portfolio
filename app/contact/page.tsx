@@ -1,3 +1,5 @@
+import CopyEmailButton from "../components/CopyEmailButton";
+
 const Row = ({
   label,
   value,
@@ -68,6 +70,9 @@ export default function ContactPage() {
 
             <div className="mt-6 space-y-4">
               <Row label="Email" value={email} href={mailto} />
+              <div className="pt-1">
+                <CopyEmailButton email={email} />
+              </div>
               <Row label="Location" value="Greater Boston" />
               <Row label="Availability" value="By appointment" />
             </div>
