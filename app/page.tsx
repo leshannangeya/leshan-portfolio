@@ -74,33 +74,25 @@ export default function Home() {
         </section>
 
         {/* WORK */}
-        <section id="work" className="mb-40">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-16">
-            Selected Work
-          </h2>
+        <section id="work" className="mb-40 max-w-4xl">
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-10">
+              Product and Revenue Systems
+            </h2>
 
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="border border-gray-800 p-8 rounded-xl hover:border-gray-600 transition">
-              <h3 className="text-xl font-semibold">
-                Revenue Visibility Transformation
-              </h3>
-              <p className="mt-4 text-gray-400 leading-relaxed">
-                Built KPI dashboards integrating structured datasets to improve
-                operational clarity, reduce manual reporting cycles, and enable
-                more disciplined quarterly performance reviews.
-              </p>
-            </div>
+            <div className="space-y-6 text-gray-300 text-lg">
+              <a href="/projects/revenue-visibility" className="block hover:text-white transition">
+                Revenue Visibility Transformation →
+              </a>
 
-            <div className="border border-gray-800 p-8 rounded-xl hover:border-gray-600 transition">
-              <h3 className="text-xl font-semibold">SAP Operational Alignment</h3>
-              <p className="mt-4 text-gray-400 leading-relaxed">
-                Supported ERP deployment and reporting integration, improving
-                financial visibility and procurement efficiency through
-                structured data alignment.
-              </p>
+              <a href="/projects/sap-operational-alignment" className="block hover:text-white transition">
+                SAP Operational Alignment →
+              </a>
+
+              <a href="/projects" className="block mt-8 text-white underline underline-offset-4">
+                View all case studies
+              </a>
             </div>
-          </div>
-        </section>
+          </section>
 
         <section id="contact" className="mb-40 max-w-4xl">
           <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-10">
