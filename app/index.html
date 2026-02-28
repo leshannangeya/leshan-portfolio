@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stephen Leshan Nang'eya — Product & Growth Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080809;
+      --bg-2:      #0e0e10;
+      --bg-3:      #141416;
+      --border:    rgba(255,255,255,0.07);
+      --text:      #e8e4dc;
+      --muted:     #7a7570;
+      --accent:    #c9a84c;
+      --accent-2:  #8bc4b8;
+      --white:     #f5f2ec;
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-mono:    'IBM Plex Mono', 'Courier New', monospace;
+      --ff-body:    'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(8,8,9,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--ff-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 3rem 4rem;
+      gap: 4rem;
+    }
+
+    .hero-left {}
+
+    .hero-label {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1.hero-name {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    h1.hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-tagline {
+      font-family: var(--ff-display);
+      font-size: clamp(1rem, 1.5vw, 1.25rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      max-width: 460px;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .btn-primary:hover { background: #e0bc6a; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Hero right: stat cards */
+    .hero-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .stat-card {
+      background: var(--bg-2);
+      padding: 2rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .stat-card:hover::after { transform: scaleX(1); }
+
+    .stat-num {
+      font-family: var(--ff-display);
+      font-size: 2.75rem;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .stat-label {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 3rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-num {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+    }
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 300;
+      color: var(--white);
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 120px;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg-2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      font-family: var(--ff-display);
+      font-size: 1.2rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .about-text p span { color: var(--accent); font-style: italic; }
+
+    .about-meta { display: flex; flex-direction: column; gap: 0.5rem; }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.875rem 0;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--ff-mono);
+      font-size: 0.7rem;
+    }
+    .meta-key { color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .meta-val { color: var(--text); }
+
+    /* ── SKILLS ── */
+    #skills {}
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .skill-group {
+      background: var(--bg);
+      padding: 2.5rem;
+    }
+    .skill-group-title {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .tag:hover { border-color: var(--accent-2); color: var(--accent-2); }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg-2); }
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-meta {
+      padding-top: 0.25rem;
+    }
+    .exp-period {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .exp-company {
+      font-family: var(--ff-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .exp-content {}
+    .exp-title {
+      font-family: var(--ff-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .exp-bullets li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-left: 1.25rem;
+      position: relative;
+      line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-family: var(--ff-mono);
+    }
+    .exp-bullets li strong { color: var(--text); font-weight: 400; }
+
+    /* ── PROJECTS ── */
+    #projects {}
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .project-card {
+      background: var(--bg);
+      padding: 2.5rem;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .project-card:hover { background: var(--bg-3); }
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .project-tag {
+      font-family: var(--ff-mono);
+      font-size: 0.62rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-family: var(--ff-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .project-arrow {
+      margin-top: 1.5rem;
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--bg-2); }
+    .edu-list { display: flex; flex-direction: column; gap: 0; }
+    .edu-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-item:last-child { border-bottom: none; }
+    .edu-year {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      padding-top: 0.2rem;
+    }
+    .edu-degree {
+      font-family: var(--ff-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+    .edu-school {
+      font-family: var(--ff-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .edu-focus {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+      font-family: var(--ff-display);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .contact-left {}
+    .contact-heading {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .contact-heading em { font-style: italic; color: var(--accent); }
+    .contact-sub {
+      font-size: 0.88rem;
+      color: var(--muted);
+      max-width: 360px;
+      margin-bottom: 2rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 0; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .contact-link:hover .cl-label { color: var(--accent); }
+    .contact-link:hover .cl-arrow { color: var(--accent); transform: translateX(4px); }
+    .cl-label {
+      font-family: var(--ff-mono);
+      font-size: 0.7rem;
+      color: var(--text);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .cl-arrow {
+      font-family: var(--ff-mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .contact-right {}
+    .availability-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+    }
+    .avail-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      color: var(--accent-2);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .avail-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.4); }
+    }
+    .avail-title {
+      font-family: var(--ff-display);
+      font-size: 1.35rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .avail-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .avail-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.25rem; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 6rem 1.5rem 3rem;
+        gap: 3rem;
+      }
+      .hero-right { grid-template-columns: 1fr 1fr; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      #contact { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">SLN</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="/resume.pdf">Resume ↗</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-label">Product &amp; Growth Analytics</div>
+      <h1 class="hero-name">
+        Stephen<br>
+        Leshan<br>
+        <em>Nang'eya</em>
+      </h1>
+      <p class="hero-tagline">
+        I design clarity inside complex systems where data informs disciplined decisions.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-primary">View Work</a>
+        <a href="#contact" class="btn btn-ghost">Let's Connect</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="stat-card">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Years in Operations &amp; Strategy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">~30%</div>
+        <div class="stat-label">Visibility Improvement Delivered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">25+</div>
+        <div class="stat-label">Client Engagements Led</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">B2B</div>
+        <div class="stat-label">SaaS Analytics Focus</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>
+          I have spent over a decade working across <span>operations, ERP systems, and performance reporting</span>. What shifted my trajectory was realizing that most business problems are not execution problems — they are visibility problems.
+        </p>
+        <p>
+          My focus today is building structured systems where <span>metrics drive confident decisions</span>. I am interested in product environments where usage data, monetization strategy, and operational readiness intersect.
+        </p>
+        <p>
+          Currently completing an <span>MSc in Business Analytics</span> at Hult International Business School, deepening my work in product analytics, revenue modeling, and predictive systems.
+        </p>
+      </div>
+      <div class="about-meta">
+        <div class="meta-row">
+          <span class="meta-key">Location</span>
+          <span class="meta-val">Kenya</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Education</span>
+          <span class="meta-val">MSc Business Analytics</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Institution</span>
+          <span class="meta-val">Hult IBS — 2026</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Seeking</span>
+          <span class="meta-val">Product Analytics Internship</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Domain</span>
+          <span class="meta-val">B2B SaaS</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Email</span>
+          <span class="meta-val">nangeyaleshan@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Core Competencies</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid fade-in">
+      <div class="skill-group">
+        <div class="skill-group-title">Product &amp; Growth Analytics</div>
+        <div class="skill-tags">
+          <span class="tag">Funnel Analysis</span>
+          <span class="tag">Retention Analysis</span>
+          <span class="tag">Revenue &amp; KPI Tracking</span>
+          <span class="tag">Cohort Analysis</span>
+          <span class="tag">Performance Dashboards</span>
+          <span class="tag">Expansion Revenue</span>
+          <span class="tag">Experimentation Support</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Technical Tools</div>
+        <div class="skill-tags">
+          <span class="tag">SQL</span>
+          <span class="tag">Python</span>
+          <span class="tag">Pandas &amp; NumPy</span>
+          <span class="tag">R</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Data Modeling</span>
+          <span class="tag">SAP ERP</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-item fade-in">
+        <div class="exp-meta">
+          <div class="exp-period">Jan 2017 – Aug 2025</div>
+          <div class="exp-company">Stele Media LTD</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-title">Strategy &amp; Operations Lead</div>
+          <ul class="exp-bullets">
+            <li>Coordinated delivery across <strong>25+ client engagements</strong>, using structured performance summaries to inform planning decisions and support <strong>15–25% improvements</strong> in campaign outcomes.</li>
+            <li>Participated in monthly and quarterly <strong>KPI review cycles</strong> using dashboards and standardized reports to guide internal and client decisions.</li>
+            <li>Standardized reporting and automation workflows, improving <strong>performance visibility by ~30%</strong> and reducing ad-hoc reporting requests by <strong>~40%</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-meta">
+          <div class="exp-period">Jan 2011 – Dec 2016</div>
+          <div class="exp-company">Standard Group PLC</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-title">IT Operations &amp; Digital Strategy Lead</div>
+          <ul class="exp-bullets">
+            <li>Deployed and optimized <strong>SAP ERP systems</strong>, improving financial reporting accuracy and operational workflows by <strong>25%</strong>.</li>
+            <li>Integrated publishing and advertising systems with SAP and Google Ad Manager, automating revenue tracking and increasing digital operational efficiency by <strong>30%</strong>.</li>
+            <li>Collaborated cross-functionally to align system outputs with business performance and reporting objectives.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Case Studies</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid fade-in">
+
+      <a href="/projects/revenue-visibility" class="project-card">
+        <div class="project-tag">Revenue Analytics</div>
+        <div class="project-title">Revenue Visibility Transformation</div>
+        <p class="project-desc">Designing a structured reporting system to surface revenue patterns, eliminate blind spots, and enable confident monetization decisions at scale.</p>
+        <div class="project-arrow">View case study →</div>
+      </a>
+
+      <a href="/projects/sap-operational-alignment" class="project-card">
+        <div class="project-tag">ERP &amp; Operations</div>
+        <div class="project-title">SAP Operational Alignment</div>
+        <p class="project-desc">Aligning SAP ERP outputs with business performance goals across publishing and advertising operations, improving data accuracy and cross-functional reporting.</p>
+        <div class="project-arrow">View case study →</div>
+      </a>
+
+      <div class="project-card" style="cursor:default;">
+        <div class="project-tag">Applied Analytics</div>
+        <div class="project-title">Product Usage &amp; KPI Dashboards</div>
+        <p class="project-desc">Built KPI dashboards and structured performance metrics within simulated product reporting environments, modeling datasets with SQL for usage and performance analysis.</p>
+        <div class="project-arrow" style="opacity:0.4;">In progress</div>
+      </div>
+
+      <div class="project-card" style="cursor:default;">
+        <div class="project-tag">Predictive Modeling</div>
+        <div class="project-title">End-to-End Python Analytics</div>
+        <p class="project-desc">Performed full-cycle analysis and predictive modeling in Python (Pandas, NumPy), evaluating model performance and communicating insights for business decision-making.</p>
+        <div class="project-arrow" style="opacity:0.4;">In progress</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-list">
+
+      <div class="edu-item fade-in">
+        <div class="edu-year">Expected Aug 2026</div>
+        <div>
+          <div class="edu-degree">Master of Science in Business Analytics</div>
+          <div class="edu-school">Hult International Business School</div>
+          <div class="edu-focus">Focus: Product Analytics · Revenue Modeling · Predictive Analytics · Optimization</div>
+        </div>
+      </div>
+
+      <div class="edu-item fade-in">
+        <div class="edu-year">Prior</div>
+        <div>
+          <div class="edu-degree">Bachelor of Science in Information Technology</div>
+          <div class="edu-school">Jomo Kenyatta University of Agriculture and Technology</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-left fade-in">
+      <h2 class="contact-heading">Let's build<br>something <em>precise</em>.</h2>
+      <p class="contact-sub">If you are hiring for Product Analytics, Product Strategy, or Growth Analytics roles, I'd like to connect.</p>
+      <div class="contact-links">
+        <a href="mailto:nangeyaleshan@gmail.com" class="contact-link">
+          <span class="cl-label">Email</span>
+          <span class="cl-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/leshannangeya/" target="_blank" class="contact-link">
+          <span class="cl-label">LinkedIn</span>
+          <span class="cl-arrow">→</span>
+        </a>
+        <a href="/resume.pdf" class="contact-link">
+          <span class="cl-label">Download Resume</span>
+          <span class="cl-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-right fade-in">
+      <div class="availability-card">
+        <div class="avail-indicator">
+          <span class="avail-dot"></span>
+          Available for opportunities
+        </div>
+        <div class="avail-title">Seeking a Product Analytics Internship</div>
+        <p class="avail-desc">Open to B2B SaaS environments focused on usage data, retention analysis, monetization strategy, and experimentation. Based in Kenya, open to remote.</p>
+        <div class="avail-tags">
+          <span class="tag">Product Analytics</span>
+          <span class="tag">Growth Analytics</span>
+          <span class="tag">Product Strategy</span>
+          <span class="tag">Remote</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2026 Stephen Leshan Nang'eya</span>
+    <span class="footer-copy">Product &amp; Growth Analytics · leshannangeya.com</span>
+  </footer>
+
+  <script>
+    // Scroll-triggered fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Staggered children within a fade-in parent
+    document.querySelectorAll('.exp-item, .edu-item').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 80}ms`;
+    });
+  </script>
+
+</body>
+</html>
